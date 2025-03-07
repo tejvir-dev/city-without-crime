@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Update Status{% endblock %}
+
+{% block content %}
+
+<div class="card mx-auto my-5 p-4 col-6">
+    <h2 class='mb-4'>Update Status of Complaint Here</h2>
+    <form method="POST">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label for="fname" class="form-label">Description</label>
+        <input type="text" class="form-control" id="fname" name='description' aria-describedby="emailHelp">
+    </div>
+
+    <div class="mb-3">
+        <label for="status" class="form-label">Status</label>
+        <select class="form-select" id="floatingSelect" name="status" aria-label="Default select example">            
+            {% for temp in stat %}
+            <option value={{ temp }} {% if complaint.status == temp %}selected{% endif %}>{{ temp }}</option>
+            {% endfor %}              
+          </select>    
+        </div>
+    <br>
+    <button type="submit" class="btn btn-warning">Update Complaint Status</button>
+  </form>
+</div>
+
+{% endblock %}

@@ -6,63 +6,40 @@
 
 <div class="card mx-auto my-5 p-4 col-6">
     <h2 class='mb-4'>Criminal Details</h2>
-    <form>
-
-    <div class="mb-3">
-        <label for="fname" class="form-label">First Name</label>
-        <input type="text" class="form-control-plaintext" readonly value="Name of criminal" id="fname" name='fname' aria-describedby="emailHelp">
-    </div>
-
-    <div class="mb-3">
-        <label for="lname" class="form-label">Last Name</label>
-        <input type="text" class="form-control-plaintext" readonly value="last name of criminal" id="lname" name='lname' aria-describedby="emailHelp">
-    </div>
-
-    <div class="mb-3">
-        <label for="floatingSelect" class="form-label">Gender</label>
-            <input class="form-control-plaintext" id="floatingSelect" readonly value="gender of criminal" aria-label="Default select example">
-    </div>
-
-    <div class="mb-3">
-        <label for="height" class="form-label">Height</label>
-        <input type="number" class="form-control-plaintext" id="height" name='height'readonly value=172 aria-describedby="emailHelp">
-    </div>
-
-    <div class="mb-3">
-        <label for="weight" class="form-label">Weight</label>
-        <input type="number" class="form-control-plaintext" id="weight" name='weight' readonly value=85 aria-describedby="emailHelp">
-    </div>
-
-    <div class="mb-3">
-        <label for="floatingSelect" class="form-label" >Crime Level</label>
-            <input class="form-control-plaintext" id="floatingSelect" readonly value="crime level of criminal" aria-label="Default select example">
-    </div>
-
-    <div class="mb-3">
-        <label for="status" class="form-label">Status</label>
-        <input type="text" class="form-control-plaintext" id="status" readonly value="status of criminal" name='status' aria-describedby="emailHelp">
-    </div>
-
-    <div class="mb-3">
-        <label for="floatingSelect" class="form-label">Police Station</label>
-            <input class="form-control-plaintext" id="floatingSelect" readonly value="station of criminal" aria-label="Default select example">
-    </div>
-
-    <div class="mb-3">
-        <label for="file" class="form-label">Picture</label>
-        <input type="text" class="form-control-plaintext" readonly value="picture of criminal" id="file" name='file' aria-describedby="emailHelp">
-    </div>
-
-    <div class="mb-3">
-        <div class="form-floating">
-          <textarea class="form-control-plaintext" readonly placeholder="Leave a comment here" id="floatingTextarea">address of criminal</textarea>
-          <label for="floatingTextarea">Address</label>
-        </div>
-    </div>
-    <br>
-    <a href="{% url "edit_criminal" %}"><button type="button" class="btn btn-dark">Edit</button></a>
-    
-  </form>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Height</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Status</th>
+            <th scope="col">Level</th>
+            <th scope="col">Picture</th>
+            <th scope="col">Operation</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for criminal in queryset %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ criminal.name }}</td>
+            <td>{{ criminal.age }}</td>
+            <td>{{ criminal.gender }}</td>
+            <td>{{ criminal.height }}</td>
+            <td>{{ criminal.weight }}</td>
+            <td>{{ criminal.status }}</td>
+            <td>{{ criminal.age }}</td>
+            <td> <img src="{{ criminal.criminal_picture.url }}" alt="{{ criminal.name }} Picture"> </td>
+            <td>
+                <a href="{% url 'edit_criminal' criminal.id %}" class="btn btn-primary">Edit</a>
+                {% comment %} <a href="{% url 'delete_criminal' criminal.id %}" class="btn btn-danger">Delete</a> {% endcomment %}
+          </tr>
+            {% endfor %}
+        </tbody>
+      </table>
 </div>
 
 {% endblock %}

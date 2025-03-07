@@ -6,56 +6,62 @@
 
 <div class="card mx-auto my-5 p-4 col-6">
     <h2 class='mb-4'>Edit a Criminal Details</h2>
-    <form>
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
 
     <div class="mb-3">
-        <label for="fname" class="form-label">First Name</label>
-        <input type="text" class="form-control" id="fname" name='fname' aria-describedby="emailHelp">
+        <label for="fname" class="form-label">Name</label>
+        <input type="text" class="form-control" id="fname" name='name' value={{criminal.name}} aria-describedby="emailHelp">
     </div>
 
     <div class="mb-3">
-        <label for="lname" class="form-label">Last Name</label>
-        <input type="text" class="form-control" id="lname" name='lname' aria-describedby="emailHelp">
+        <label for="age" class="form-label">Age</label>
+        <input type="number" class="form-control" id="age" name='age' value={{criminal.age}} aria-describedby="emailHelp">
     </div>
 
     <div class="mb-3">
         <label for="floatingSelect" class="form-label">Gender</label>
-            <select class="form-select" id="floatingSelect" aria-label="Default select example">
-              <option selected disabled>Select gender</option>
-              <option value="M">Male</option>
-              <option value="F">Female</option>
-              <option value="O">Other</option>
+            <select class="form-select" id="floatingSelect" name="gender" aria-label="Default select example">
+              <option value="M" {% if criminal.gender == "M" %}selected{% endif %}>Male</option>
+              <option value="F" {% if criminal.gender == "F" %}selected{% endif %}>Female</option>
+              <option value="O" {% if criminal.gender == "O" %}selected{% endif %}>Other</option>
             </select>
     </div>
 
     <div class="mb-3">
         <label for="height" class="form-label">Height</label>
-        <input type="number" class="form-control" id="height" name='height' aria-describedby="emailHelp">
+        <input type="number" class="form-control" id="height" name='height' value={{criminal.height}} aria-describedby="emailHelp">
     </div>
 
     <div class="mb-3">
         <label for="weight" class="form-label">Weight</label>
-        <input type="number" class="form-control" id="weight" name='weight' aria-describedby="emailHelp">
+        <input type="number" class="form-control" id="weight" name='weight' value={{criminal.weight}} aria-describedby="emailHelp">
     </div>
 
     <div class="mb-3">
         <label for="floatingSelect" class="form-label">Crime Level</label>
-            <select class="form-select" id="floatingSelect" aria-label="Default select example">
-              <option selected disabled>Select crime level</option>
-              <option value=1>Level 1</option>
-              <option value=2>Level 2</option>
-              <option value=3>Level 3</option>
-              <option value=4>Level 4</option>
-              <option value=5>Level 5</option>
+            <select class="form-select" id="floatingSelect" name="level" aria-label="Default select example">
+              <option value=1 {% if criminal.level == 1 %}selected{% endif %}>Level 1</option>
+              <option value=2 {% if criminal.level == 2 %}selected{% endif %}>Level 2</option>
+              <option value=3 {% if criminal.level == 3 %}selected{% endif %}>Level 3</option>
+              <option value=4 {% if criminal.level == 4 %}selected{% endif %}>Level 4</option>
+              <option value=5 {% if criminal.level == 5 %}selected{% endif %}>Level 5</option>
             </select>
     </div>
 
     <div class="mb-3">
         <label for="status" class="form-label">Status</label>
-        <input type="text" class="form-control" id="status" name='status' aria-describedby="emailHelp">
-    </div>
+        <select class="form-select" id="floatingSelect" name="status" aria-label="Default select example">
+            <option selected disabled>Select status</option>
+            
+            {% for temp in stat %}
+            <option value={{ temp }} {% if temp == criminal.status %}selected{% endif %}>{{ temp }}</option>
+            {% endfor %}
+                        
+          </select>    
+        </div>
 
-    <div class="mb-3">
+    {% comment %} <div class="mb-3">
         <label for="floatingSelect" class="form-label">Police Station</label>
             <select class="form-select" id="floatingSelect" aria-label="Default select example">
               <option selected disabled>Select station</option>
@@ -65,19 +71,19 @@
               <option value=4>Station 4</option>
               <option value=5>Station 5</option>
             </select>
-    </div>
+    </div> {% endcomment %}
 
     <div class="mb-3">
         <label for="file" class="form-label">Picture</label>
-        <input type="file" class="form-control" id="file" name='file' aria-describedby="emailHelp">
+        <input type="file" class="form-control" id="file" name='file' value={{criminal.criminal_picture.url}} aria-describedby="emailHelp">
     </div>
 
-    <div class="mb-3">
+    {% comment %} <div class="mb-3">
         <div class="form-floating">
           <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
           <label for="floatingTextarea">Address</label>
         </div>
-    </div>
+    </div> {% endcomment %}
     <br>
     <button type="submit" class="btn btn-primary">Edit</button>
   </form>

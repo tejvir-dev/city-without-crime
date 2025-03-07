@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Lodge Complaint{% endblock %}
+
+{% block content %}
+
+<div class="card mx-auto my-5 p-4 col-6">
+    <h2 class='mb-4'>Lodge a Complaint Here</h2>
+    <form method="POST">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label for="fname" class="form-label">Description</label>
+        <input type="text" class="form-control" id="fname" name='description' aria-describedby="emailHelp">
+    </div>
+
+    <div class="mb-3">
+        <label for="status" class="form-label">Police Station</label>
+        <select class="form-select" id="floatingSelect" name="station" aria-label="Default select example">
+            <option selected disabled>Select Police Station</option>
+            
+            {% for temp in stat %}
+            <option value={{ temp.id }}>{{ temp.police_station_name }}</option>
+            {% endfor %}
+                        
+          </select>    
+        </div>
+
+    <br>
+    <button type="submit" class="btn btn-primary">Lodge Complaint</button>
+  </form>
+</div>
+
+{% endblock %}

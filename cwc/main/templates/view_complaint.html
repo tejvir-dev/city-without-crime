@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Complaints{% endblock %}
+
+{% block content %}
+
+<div class="card mx-auto my-5 p-4 col-6">
+    <h2 class='mb-4'>Complaint Details</h2>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
+            <th scope="col">Lodge Date</th>
+            <th scope="col">Police Station</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for complaint in queryset %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ complaint.description }}</td>
+            <td>{{ complaint.status }}</td>
+            <td>{{ complaint.created_at }}</td>
+            <td>{{ complaint.p_id.police_station_name }}</td>
+        </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+{% endblock %}

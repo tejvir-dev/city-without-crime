@@ -6,7 +6,8 @@
 
 <div class="card mx-auto my-5 p-4 col-6">
     <h2 class='mb-4'>Add a Criminal Here</h2>
-    <form>
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
 
     <div class="mb-3">
         <label for="fname" class="form-label">First Name</label>
@@ -20,12 +21,18 @@
 
     <div class="mb-3">
         <label for="floatingSelect" class="form-label">Gender</label>
-            <select class="form-select" id="floatingSelect" aria-label="Default select example">
+            <select class="form-select" id="floatingSelect" name="gender" aria-label="Default select example">
               <option selected disabled>Select gender</option>
               <option value="M">Male</option>
               <option value="F">Female</option>
               <option value="O">Other</option>
             </select>
+    </div>
+
+
+    <div class="mb-3">
+        <label for="age" class="form-label">Age</label>
+        <input type="number" class="form-control" id="age" name='age' aria-describedby="emailHelp">
     </div>
 
     <div class="mb-3">
@@ -40,7 +47,7 @@
 
     <div class="mb-3">
         <label for="floatingSelect" class="form-label">Crime Level</label>
-            <select class="form-select" id="floatingSelect" aria-label="Default select example">
+            <select class="form-select" name="level" id="floatingSelect" aria-label="Default select example">
               <option selected disabled>Select crime level</option>
               <option value=1>Level 1</option>
               <option value=2>Level 2</option>
@@ -52,12 +59,19 @@
 
     <div class="mb-3">
         <label for="status" class="form-label">Status</label>
-        <input type="text" class="form-control" id="status" name='status' aria-describedby="emailHelp">
+        <select class="form-select" id="floatingSelect" name="status" aria-label="Default select example">
+            <option selected disabled>Select status</option>
+            
+            {% for temp in stat %}
+            <option value={{ temp }}>{{ temp }}</option>
+            {% endfor %}
+                        
+          </select>
     </div>
 
-    <div class="mb-3">
+    {% comment %} <div class="mb-3">
         <label for="floatingSelect" class="form-label">Police Station</label>
-            <select class="form-select" id="floatingSelect" aria-label="Default select example">
+            <select class="form-select" id="floatingSelect" name="police_station" aria-label="Default select example">
               <option selected disabled>Select station</option>
               <option value=1>Station 1</option>
               <option value=2>Station 2</option>
@@ -65,19 +79,19 @@
               <option value=4>Station 4</option>
               <option value=5>Station 5</option>
             </select>
-    </div>
+    </div> {% endcomment %}
 
     <div class="mb-3">
         <label for="file" class="form-label">Picture</label>
         <input type="file" class="form-control" id="file" name='file' aria-describedby="emailHelp">
     </div>
 
-    <div class="mb-3">
+    {% comment %} <div class="mb-3">
         <div class="form-floating">
           <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
           <label for="floatingTextarea">Address</label>
         </div>
-    </div>
+    </div> {% endcomment %}
     <br>
     <button type="submit" class="btn btn-primary">Add</button>
   </form>
